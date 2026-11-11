@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Palette · Graphite / Electric Lime / Bone / Smoke / Coral */
+@theme {
+  --color-graphite: #0b0b0c;
+  --color-lime: #c6f432;
+  --color-bone: #f2f0e9;
+  --color-smoke: #8a8a85;
+  --color-coral: #ff6b4a;
+  --color-amber: #ffb547;
+}
+
+/* Animatable angle for the light that runs around the featured card */
+@property --spin {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+html,
+body {
+  background: var(--color-graphite);
+  color: var(--color-bone);
+}
+
+/* A glint that sweeps across buttons and badges */
+@utility shimmer {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.65) 50%, transparent 65%);
+    translate: -110% 0;
+    animation: shine 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes shine { 60%, 100% { translate: 110% 0; } }
+@keyframes beam-spin { to { --spin: 360deg; } }
+@keyframes ob-spin { to { rotate: 360deg; } }
+
+/* Background glows that drift slowly behind the glass cards */
+@keyframes drift-a { to { translate: 90px 70px; scale: 1.15; } }
+@keyframes drift-b { to { translate: -80px -60px; scale: 0.9; } }
+@keyframes drift-c { to { translate: -60px 90px; scale: 1.2; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
